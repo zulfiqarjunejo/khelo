@@ -1,19 +1,16 @@
-//
-//  ContentView.swift
-//  khelo
-//
-//  Created by Zulfiqar Ahmed on 09.08.26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var message = "Hello, Zulfiqar!"
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 20) {
+            Text(message)
+                .font(.largeTitle)
+
+            Button("Change Message") {
+                message = "You pressed the button! 🎉"
+            }
         }
         .padding()
     }
