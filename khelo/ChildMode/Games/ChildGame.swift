@@ -25,6 +25,10 @@ struct ChildGame: Identifiable, Hashable {
     let symbolName: String
     let tint: Color
     let kind: ChildGameKind
+    /// Whether this game requires the "Premium Games" purchase to play.
+    /// `.numbersPop` and `.alphabetsPop` stay free; everything else built
+    /// so far is part of the paid unlock.
+    var isPremium: Bool = false
 }
 
 enum ChildGameCatalog {
@@ -37,7 +41,8 @@ enum ChildGameCatalog {
             subtitle: "Listen & discover",
             symbolName: "textformat.123",
             tint: .orange,
-            kind: .numberWords
+            kind: .numberWords,
+            isPremium: true
         ),
         ChildGame(
             title: "Numbers",
@@ -58,14 +63,16 @@ enum ChildGameCatalog {
             subtitle: "Drag & match",
             symbolName: "square.on.circle",
             tint: .blue,
-            kind: .shapeSorter
+            kind: .shapeSorter,
+            isPremium: true
         ),
         ChildGame(
             title: "Balloons",
             subtitle: "Tap & pop",
             symbolName: "balloon.2.fill",
             tint: .red,
-            kind: .balloonPop
+            kind: .balloonPop,
+            isPremium: true
         ),
         // Not built yet — uncomment when ready to work on it.
         // ChildGame(

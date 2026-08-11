@@ -12,15 +12,29 @@ import SwiftUI
 struct ChildGamesHomeView: View {
     private let columns = [GridItem(.adaptive(minimum: 140), spacing: 16)]
 
+    @StateObject private var purchaseManager = PurchaseManager.shared
+    @State private var paywallGame: ChildGame?
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(ChildGameCatalog.games) { game in
-                        NavigationLink(value: game) {
-                            ChildGameCardView(game: game)
+                        let isLocked = game.isPremium && !purchaseManager.isPremiumUnlocked
+
+                        if isLocked {
+                            Button {
+                                paywallGame = game
+                            } label: {
+                                ChildGameCardView(game: game, isLocked: true)
+                            }
+                            .buttonStyle(.plain)
+                        } else {
+                            NavigationLink(value: game) {
+                                ChildGameCardView(game: game)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                 }
                 .padding()
@@ -33,6 +47,9 @@ struct ChildGamesHomeView: View {
         // Keep colors bold and consistent for children regardless of the
         // parent device's Dark Mode setting.
         .preferredColorScheme(.light)
+        .sheet(item: $paywallGame) { _ in
+            PaywallView(purchaseManager: purchaseManager)
+        }
     }
 
     @ViewBuilder
