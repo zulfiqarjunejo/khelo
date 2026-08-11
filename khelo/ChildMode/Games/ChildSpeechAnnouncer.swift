@@ -42,16 +42,5 @@ final class ChildSpeechAnnouncer: ObservableObject {
 
         synthesizer.speak(utterance)
     }
-
-    /// Speaks a short celebratory phrase after a correct answer.
-    func speakPraise() {
-        let praises = ["Yay!", "Great job!", "Well done!", "You did it!"]
-        let utterance = AVSpeechUtterance(string: praises.randomElement() ?? "Yay!")
-        utterance.rate = 0.45
-        utterance.pitchMultiplier = 1.2
-
-        synthesizer.stopSpeaking(at: .word)
-        synthesizer.speak(utterance)
-    }
 }
 
