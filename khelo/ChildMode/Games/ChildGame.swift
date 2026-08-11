@@ -13,6 +13,7 @@ enum ChildGameKind: Hashable {
     case numberWords
     case numbersPop
     case alphabetsPop
+    case shapeSorter
     case placeholder
 }
 
@@ -52,10 +53,10 @@ enum ChildGameCatalog {
         ),
         ChildGame(
             title: "Shape Sorter",
-            subtitle: "Coming soon",
+            subtitle: "Drag & match",
             symbolName: "square.on.circle",
             tint: .blue,
-            kind: .placeholder
+            kind: .shapeSorter
         ),
         ChildGame(
             title: "Color Match",

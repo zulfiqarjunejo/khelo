@@ -41,6 +41,8 @@ struct ChildGamesHomeView: View {
             NumbersGameView()
         case .alphabetsPop:
             AlphabetsGameView()
+        case .shapeSorter:
+            ShapeSorterGameView()
         case .placeholder:
             PlaceholderGameView(game: game)
         }
