@@ -11,6 +11,7 @@ import SwiftUI
 
 enum ChildGameKind: Hashable {
     case numberWords
+    case numbersPop
     case placeholder
 }
 
@@ -33,6 +34,13 @@ enum ChildGameCatalog {
             symbolName: "textformat.123",
             tint: .orange,
             kind: .numberWords
+        ),
+        ChildGame(
+            title: "Numbers",
+            subtitle: "Tap & pop",
+            symbolName: "hand.tap.fill",
+            tint: .teal,
+            kind: .numbersPop
         ),
         ChildGame(
             title: "Shape Sorter",

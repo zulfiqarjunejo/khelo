@@ -37,6 +37,8 @@ struct ChildGamesHomeView: View {
         switch game.kind {
         case .numberWords:
             NumberWordsGameView()
+        case .numbersPop:
+            NumbersGameView()
         case .placeholder:
             PlaceholderGameView(game: game)
         }

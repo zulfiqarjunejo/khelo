@@ -2,8 +2,10 @@
 //  ChildSpeechAnnouncer.swift
 //  khelo
 //
-//  Speaks a number word, pauses briefly, then speaks the matching object
-//  word — e.g. "Five" ... "Apples" — using two queued AVSpeechUtterances.
+//  Shared speech helper used by Child Mode games. Speaks a number word,
+//  pauses briefly, then speaks the matching object word — e.g. "Five" ...
+//  "Apples" — using two queued AVSpeechUtterances. Also supports speaking
+//  a single number on its own.
 //
 
 import AVFoundation
@@ -30,6 +32,17 @@ final class ChildSpeechAnnouncer: ObservableObject {
         synthesizer.speak(wordUtterance)
     }
 
+    /// Speaks a single number word on its own (e.g. "Seven!").
+    func speakNumber(_ number: String) {
+        synthesizer.stopSpeaking(at: .immediate)
+
+        let utterance = AVSpeechUtterance(string: "\(number)!")
+        utterance.rate = 0.34
+        utterance.pitchMultiplier = 1.35
+
+        synthesizer.speak(utterance)
+    }
+
     /// Speaks a short celebratory phrase after a correct answer.
     func speakPraise() {
         let praises = ["Yay!", "Great job!", "Well done!", "You did it!"]
@@ -41,3 +54,4 @@ final class ChildSpeechAnnouncer: ObservableObject {
         synthesizer.speak(utterance)
     }
 }
+
