@@ -17,6 +17,8 @@ private struct PoppedNumber: Identifiable {
 }
 
 struct NumbersGameView: View {
+    fileprivate static let lifetime: Double = 1.4
+
     @State private var poppedNumbers: [PoppedNumber] = []
 
     private let announcer = ChildSpeechAnnouncer()
@@ -36,11 +38,7 @@ struct NumbersGameView: View {
             }
 
             ForEach(poppedNumbers) { number in
-                Text("\(number.value)")
-                    .font(.system(size: 96, weight: .heavy, design: .rounded))
-                    .foregroundStyle(number.color)
-                    .position(number.position)
-                    .transition(.scale.combined(with: .opacity))
+                PoppedNumberView(number: number)
             }
         }
         .contentShape(Rectangle())
@@ -62,18 +60,37 @@ struct NumbersGameView: View {
             color: colors.randomElement() ?? .blue
         )
 
-        withAnimation(.spring(response: 0.35, dampingFraction: 0.6)) {
-            poppedNumbers.append(popped)
-        }
+        poppedNumbers.append(popped)
 
         announcer.speakNumber(NumberWordsCatalog.numberWords[value - 1])
 
         Task {
-            try? await Task.sleep(for: .seconds(1.2))
-            withAnimation(.easeOut(duration: 0.3)) {
-                poppedNumbers.removeAll { $0.id == popped.id }
-            }
+            try? await Task.sleep(for: .seconds(NumbersGameView.lifetime))
+            poppedNumbers.removeAll { $0.id == popped.id }
         }
+    }
+}
+
+/// A single number that pops in big and shrinks away to nothing.
+private struct PoppedNumberView: View {
+    let number: PoppedNumber
+
+    @State private var scale: CGFloat = 1.6
+    @State private var opacity: Double = 1
+
+    var body: some View {
+        Text("\(number.value)")
+            .font(.system(size: 96, weight: .heavy, design: .rounded))
+            .foregroundStyle(number.color)
+            .scaleEffect(scale)
+            .opacity(opacity)
+            .position(number.position)
+            .onAppear {
+                withAnimation(.easeIn(duration: NumbersGameView.lifetime)) {
+                    scale = 0.2
+                    opacity = 0
+                }
+            }
     }
 }
 
