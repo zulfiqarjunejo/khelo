@@ -28,23 +28,17 @@ struct ChildLockOverlayView: View {
                         .font(.headline)
 
                 case .locked:
-                    Image(systemName: "lock.shield.fill")
-                        .font(.system(size: 56))
-                        .foregroundStyle(.tint)
-                    Text("Child Mode is active")
-                        .font(.title2.bold())
-                        .foregroundStyle(.primary)
-                    Text("Single App Mode is on. Hand the device to your child.")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
-                    Text("To exit, triple-click the side button (or Home button) and enter your Guided Access passcode.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
-                        .padding(.top, 8)
+                    ChildGamesHomeView()
+                        .safeAreaInset(edge: .bottom) {
+                            Text("Parent: triple-click the side (or Home) button and enter your Guided Access passcode to exit.")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 24)
+                                .padding(.vertical, 6)
+                                .frame(maxWidth: .infinity)
+                                .background(.ultraThinMaterial)
+                        }
 
                 case .failed(let message):
                     Image(systemName: "exclamationmark.triangle.fill")
