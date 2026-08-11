@@ -32,11 +32,11 @@ final class ChildSpeechAnnouncer: ObservableObject {
         synthesizer.speak(wordUtterance)
     }
 
-    /// Speaks a single number word on its own (e.g. "Seven!").
-    func speakNumber(_ number: String) {
+    /// Speaks a single word/letter on its own (e.g. "Seven!" or "B!").
+    func speakWord(_ text: String) {
         synthesizer.stopSpeaking(at: .immediate)
 
-        let utterance = AVSpeechUtterance(string: "\(number)!")
+        let utterance = AVSpeechUtterance(string: "\(text)!")
         utterance.rate = 0.34
         utterance.pitchMultiplier = 1.35
 

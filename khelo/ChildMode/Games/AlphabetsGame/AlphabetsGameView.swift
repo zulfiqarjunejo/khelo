@@ -1,44 +1,45 @@
 //
-//  NumbersGameView.swift
+//  AlphabetsGameView.swift
 //  khelo
 //
-//  Second Child Mode game: "Numbers". Wherever the child touches the
-//  screen, a random number pops up at that spot with a matching spoken
-//  number to reinforce the digit and its name.
+//  Third Child Mode game: "Alphabets". Wherever the child touches the
+//  screen, a random uppercase letter pops up at that spot with a matching
+//  spoken letter to reinforce letter recognition — mirrors NumbersGameView.
 //
 
 import SwiftUI
 
-private struct PoppedNumber: Identifiable {
+private struct PoppedLetter: Identifiable {
     let id = UUID()
-    let value: Int
+    let letter: String
     let position: CGPoint
     let color: Color
 }
 
-struct NumbersGameView: View {
+struct AlphabetsGameView: View {
     fileprivate static let lifetime: Double = 1.4
 
-    @State private var poppedNumbers: [PoppedNumber] = []
+    private static let letters: [String] = (65...90).map { String(UnicodeScalar($0)!) }
+
+    @State private var poppedLetters: [PoppedLetter] = []
 
     private let announcer = ChildSpeechAnnouncer()
-    private let range = 1...10
     private let colors: [Color] = [.red, .orange, .yellow, .green, .blue, .purple, .pink, .teal]
 
     var body: some View {
         ZStack {
             Color(.systemBackground).ignoresSafeArea()
 
-            if poppedNumbers.isEmpty {
-                Label("Touch anywhere to see a number!", systemImage: "hand.tap.fill")
+            if poppedLetters.isEmpty {
+                Label("Touch anywhere to see a letter!", systemImage: "hand.tap.fill")
                     .font(.title3.bold())
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 40)
             }
 
-            ForEach(poppedNumbers) { number in
-                PoppedNumberView(number: number)
+            ForEach(poppedLetters) { letter in
+                PoppedLetterView(letter: letter)
             }
         }
         .contentShape(Rectangle())
@@ -48,45 +49,45 @@ struct NumbersGameView: View {
                     handleTap(at: value.location)
                 }
         )
-        .navigationTitle("Numbers")
+        .navigationTitle("Alphabets")
         .navigationBarTitleDisplayMode(.inline)
     }
 
     private func handleTap(at location: CGPoint) {
-        let value = Int.random(in: range)
-        let popped = PoppedNumber(
-            value: value,
+        let letter = Self.letters.randomElement() ?? "A"
+        let popped = PoppedLetter(
+            letter: letter,
             position: location,
             color: colors.randomElement() ?? .blue
         )
 
-        poppedNumbers.append(popped)
+        poppedLetters.append(popped)
 
-        announcer.speakWord(NumberWordsCatalog.numberWords[value - 1])
+        announcer.speakWord(letter)
 
         Task {
-            try? await Task.sleep(for: .seconds(NumbersGameView.lifetime))
-            poppedNumbers.removeAll { $0.id == popped.id }
+            try? await Task.sleep(for: .seconds(Self.lifetime))
+            poppedLetters.removeAll { $0.id == popped.id }
         }
     }
 }
 
-/// A single number that pops in big and shrinks away to nothing.
-private struct PoppedNumberView: View {
-    let number: PoppedNumber
+/// A single letter that pops in big and shrinks away to nothing.
+private struct PoppedLetterView: View {
+    let letter: PoppedLetter
 
     @State private var scale: CGFloat = 1.6
     @State private var opacity: Double = 1
 
     var body: some View {
-        Text("\(number.value)")
+        Text(letter.letter)
             .font(.system(size: 96, weight: .heavy, design: .rounded))
-            .foregroundStyle(number.color)
+            .foregroundStyle(letter.color)
             .scaleEffect(scale)
             .opacity(opacity)
-            .position(number.position)
+            .position(letter.position)
             .onAppear {
-                withAnimation(.easeIn(duration: NumbersGameView.lifetime)) {
+                withAnimation(.easeIn(duration: AlphabetsGameView.lifetime)) {
                     scale = 0.2
                     opacity = 0
                 }
@@ -96,6 +97,6 @@ private struct PoppedNumberView: View {
 
 #Preview {
     NavigationStack {
-        NumbersGameView()
+        AlphabetsGameView()
     }
 }
