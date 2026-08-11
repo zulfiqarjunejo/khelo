@@ -29,13 +29,14 @@ enum ShapeKind: CaseIterable, Hashable {
     fileprivate var outlineSymbol: String { name }
 
     fileprivate var color: Color {
+        let palette = Color.childFriendlyPalette
         switch self {
-        case .circle: return .red
-        case .square: return .blue
-        case .triangle: return .green
-        case .star: return .yellow
-        case .heart: return .pink
-        case .hexagon: return .purple
+        case .circle: return palette[0] // red
+        case .square: return palette[4] // sky blue
+        case .triangle: return palette[3] // green
+        case .star: return palette[2] // golden yellow
+        case .heart: return palette[6] // pink
+        case .hexagon: return palette[5] // purple
         }
     }
 }

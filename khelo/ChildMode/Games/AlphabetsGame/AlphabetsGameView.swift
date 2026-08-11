@@ -24,7 +24,7 @@ struct AlphabetsGameView: View {
     @State private var poppedLetters: [PoppedLetter] = []
 
     private let announcer = ChildSpeechAnnouncer()
-    private let colors: [Color] = [.red, .orange, .yellow, .green, .blue, .purple, .pink, .teal]
+    private let colors: [Color] = Color.childFriendlyPalette
 
     var body: some View {
         ZStack {

@@ -23,7 +23,7 @@ struct NumbersGameView: View {
 
     private let announcer = ChildSpeechAnnouncer()
     private let range = 1...10
-    private let colors: [Color] = [.red, .orange, .yellow, .green, .blue, .purple, .pink, .teal]
+    private let colors: [Color] = Color.childFriendlyPalette
 
     var body: some View {
         ZStack {

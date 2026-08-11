@@ -30,6 +30,9 @@ struct ChildGamesHomeView: View {
                 destinationView(for: game)
             }
         }
+        // Keep colors bold and consistent for children regardless of the
+        // parent device's Dark Mode setting.
+        .preferredColorScheme(.light)
     }
 
     @ViewBuilder
@@ -43,6 +46,8 @@ struct ChildGamesHomeView: View {
             AlphabetsGameView()
         case .shapeSorter:
             ShapeSorterGameView()
+        case .balloonPop:
+            BalloonsGameView()
         case .placeholder:
             PlaceholderGameView(game: game)
         }

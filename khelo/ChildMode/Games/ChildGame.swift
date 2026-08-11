@@ -14,6 +14,7 @@ enum ChildGameKind: Hashable {
     case numbersPop
     case alphabetsPop
     case shapeSorter
+    case balloonPop
     case placeholder
 }
 
@@ -58,6 +59,13 @@ enum ChildGameCatalog {
             symbolName: "square.on.circle",
             tint: .blue,
             kind: .shapeSorter
+        ),
+        ChildGame(
+            title: "Balloons",
+            subtitle: "Tap & pop",
+            symbolName: "balloon.2.fill",
+            tint: .red,
+            kind: .balloonPop
         ),
         // Not built yet — uncomment when ready to work on it.
         // ChildGame(
