@@ -27,8 +27,9 @@ struct ChildGame: Identifiable, Hashable {
 }
 
 enum ChildGameCatalog {
-    /// First real game (Duolingo-style numbers & words) plus placeholders
-    /// for future activities.
+    /// Real, playable games. Placeholder ideas for future games are kept
+    /// commented out below — uncomment (and set kind: .placeholder) once
+    /// work on one actually starts.
     static let games: [ChildGame] = [
         ChildGame(
             title: "Names and Numbers",
@@ -58,40 +59,41 @@ enum ChildGameCatalog {
             tint: .blue,
             kind: .shapeSorter
         ),
-        ChildGame(
-            title: "Color Match",
-            subtitle: "Coming soon",
-            symbolName: "paintpalette.fill",
-            tint: .pink,
-            kind: .placeholder
-        ),
-        ChildGame(
-            title: "Animal Sounds",
-            subtitle: "Coming soon",
-            symbolName: "pawprint.fill",
-            tint: .brown,
-            kind: .placeholder
-        ),
-        ChildGame(
-            title: "Memory Match",
-            subtitle: "Coming soon",
-            symbolName: "square.grid.2x2.fill",
-            tint: .purple,
-            kind: .placeholder
-        ),
-        ChildGame(
-            title: "Puzzle Pieces",
-            subtitle: "Coming soon",
-            symbolName: "puzzlepiece.fill",
-            tint: .green,
-            kind: .placeholder
-        ),
-        ChildGame(
-            title: "Story Time",
-            subtitle: "Coming soon",
-            symbolName: "book.fill",
-            tint: .indigo,
-            kind: .placeholder
-        ),
+        // Not built yet — uncomment when ready to work on it.
+        // ChildGame(
+        //     title: "Color Match",
+        //     subtitle: "Coming soon",
+        //     symbolName: "paintpalette.fill",
+        //     tint: .pink,
+        //     kind: .placeholder
+        // ),
+        // ChildGame(
+        //     title: "Animal Sounds",
+        //     subtitle: "Coming soon",
+        //     symbolName: "pawprint.fill",
+        //     tint: .brown,
+        //     kind: .placeholder
+        // ),
+        // ChildGame(
+        //     title: "Memory Match",
+        //     subtitle: "Coming soon",
+        //     symbolName: "square.grid.2x2.fill",
+        //     tint: .purple,
+        //     kind: .placeholder
+        // ),
+        // ChildGame(
+        //     title: "Puzzle Pieces",
+        //     subtitle: "Coming soon",
+        //     symbolName: "puzzlepiece.fill",
+        //     tint: .green,
+        //     kind: .placeholder
+        // ),
+        // ChildGame(
+        //     title: "Story Time",
+        //     subtitle: "Coming soon",
+        //     symbolName: "book.fill",
+        //     tint: .indigo,
+        //     kind: .placeholder
+        // ),
     ]
 }
